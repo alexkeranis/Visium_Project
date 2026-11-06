@@ -17,7 +17,7 @@ def _slide(counts: np.ndarray, genes: list[str]) -> ad.AnnData:
     return normalize.log_normalize(adata, target_sum=1e4)
 
 
-# --- normalization ------------------------------------------------------------
+# Normalization
 
 def test_log_normalize_keeps_counts_and_scales_rows():
     counts = np.array([[1, 3], [10, 30]])
@@ -35,7 +35,7 @@ def test_housekeeping_helpers():
     assert scale[0] == 3 and np.isnan(scale[1])
 
 
-# --- effect sizes -------------------------------------------------------------
+# Effect sizes
 
 def test_gene_effects_log2fc_uses_pseudobulk():
     normal = _slide(np.array([[10, 90], [10, 90]]), ["g1", "g2"])
@@ -50,7 +50,7 @@ def test_prob_superiority_bounds():
     assert effects.prob_superiority(np.array([1, 1]), np.array([1, 1])) == 0.5
 
 
-# --- slide background ---------------------------------------------------------
+# Slide background
 
 def _effects_table(n=100, seed=0):
     rng = np.random.default_rng(seed)
@@ -91,7 +91,7 @@ def test_random_sets_are_seed_deterministic():
     assert ((a >= 0.5) & (a <= 1)).all()
 
 
-# --- literature and tiers -----------------------------------------------------
+# Literature and tiers
 
 @pytest.mark.parametrize("expected, log2fc, result", [
     ("up", 1.0, "concordant"), ("up", -1.0, "discordant"),
@@ -115,7 +115,7 @@ def test_directional_sets_respect_probe_set():
     assert panel.directional_sets(pt, ["A", "C", "D"]) == {"up": ["A"], "down": ["C"]}
 
 
-# --- within-slide concordance ---------------------------------------------------
+# Within-slide concordance
 
 def test_spearman_matrix_matches_pandas():
     rng = np.random.default_rng(3)

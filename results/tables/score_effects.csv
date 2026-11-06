@@ -1,0 +1,4 @@
+feature,genes,cohens_d,prob_superiority,set_mean_separability,random_set_pct,image_link,image_link_rho
+score_up,AMACR FASN MYC,1.75926,0.887272,0.916327,99.8,,
+score_down,NKX3-1 PTEN TP63 KRT5,0.00593162,0.513635,0.571548,37.2,gray_sd,0.304293
+logratio_KLK3_AR,,1.68068,0.864109,,,,

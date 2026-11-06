@@ -1,0 +1,31 @@
+{
+  "finished_utc": "2026-11-06T00:32:03Z",
+  "stages": [
+    "prepare",
+    "image",
+    "markers",
+    "report"
+  ],
+  "seed": 42,
+  "config_sha256": "7570a51ad52c5b50ad8bbbfc96afcaab0be2bb2907965434d5cf79ba0e738f8b",
+  "git_commit": "647ea1f8566c26764c73315de055d049fcc87ff1",
+  "git_dirty": false,
+  "python": "3.12.12",
+  "packages": {
+    "anndata": "0.12.7",
+    "matplotlib": "3.10.8",
+    "numpy": "2.3.5",
+    "pandas": "2.3.3",
+    "scanpy": "1.11.5",
+    "scikit-image": "0.26.0",
+    "scipy": "1.16.3",
+    "seaborn": "0.13.2",
+    "squidpy": "1.7.0"
+  },
+  "inputs_sha256": {
+    "Visium_FFPE_Human_Normal_Prostate/filtered_feature_bc_matrix.h5": "a62e3f01b30eb0cbf524dbaafb52c086bc2710ff7461284b0b3778ca0e5a355c",
+    "Visium_FFPE_Human_Normal_Prostate/Visium_FFPE_Human_Normal_Prostate_spatial.tar.gz": "cd9f2616ed155b8dcdd68d0780eda5dd24f1d440b02cfd8f5c5bd1bb6481000e",
+    "Visium_FFPE_Human_Prostate_Cancer/filtered_feature_bc_matrix.h5": "08fb4185da5ac375ab3f4782744752bf3aa23fedbe93d0882aaa9fa0afde9abd",
+    "Visium_FFPE_Human_Prostate_Cancer/Visium_FFPE_Human_Prostate_Cancer_spatial.tar.gz": "3eec0e63de718a51afd1d11dea3a1db926009399937f93384d14c81f52e37202"
+  }
+}

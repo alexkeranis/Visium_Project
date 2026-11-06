@@ -1,0 +1,87 @@
+# Analysis configuration. Every stage reads this file; nothing else holds parameters.
+
+seed: 42
+
+paths:
+  data: data                      # raw inputs: data/<sample>/
+  processed: data/processed       # regenerated intermediates (git-ignored)
+  tables: results/tables          # small result tables (tracked)
+  figures: results/figures        # figures written by the notebooks (tracked)
+  manifest: results/run_manifest.json
+
+samples:
+  normal: Visium_FFPE_Human_Normal_Prostate
+  cancer: Visium_FFPE_Human_Prostate_Cancer
+
+# Spot filters. The FFPE probe set has no mitochondrial genes, so there is no MT% filter.
+qc:
+  min_counts: 500
+  max_counts: 50000
+  min_genes: 250
+
+normalization:
+  target_sum: 10000               # counts per 10k, then log1p
+  pseudocount: 0.01               # added to pseudo-bulk CP10k before log2 fold change
+  housekeeping: [ACTB, GAPDH, B2M, RPLP0, PPIA]   # sensitivity analysis only
+
+# Candidate gene panel. `expected` is the direction in cancer relative to benign tissue
+# reported by the cited study: up | down | context (depends on tumor subtype or grade) |
+# unknown (no single cancer-vs-benign reference used here). Rationale: docs/methods.md.
+panel:
+  - {gene: AMACR,   program: metabolism,      expected: up,      pmid: 11926890}
+  - {gene: FASN,    program: metabolism,      expected: up,      pmid: 12939396}
+  - {gene: ACACA,   program: metabolism,      expected: unknown}
+  - {gene: MYC,     program: oncogene,        expected: up,      pmid: 18567993}
+  - {gene: ERG,     program: ets_fusion,      expected: context, pmid: 16254181}
+  - {gene: ETV1,    program: ets_fusion,      expected: context, pmid: 16254181}
+  - {gene: ETV4,    program: ets_fusion,      expected: context, pmid: 16254181}
+  - {gene: NKX3-1,  program: suppressor,      expected: down,    pmid: 11085535}
+  - {gene: PTEN,    program: suppressor,      expected: down,    pmid: 21878536}
+  - {gene: TP53,    program: suppressor,      expected: unknown}
+  - {gene: RB1,     program: suppressor,      expected: unknown}
+  - {gene: CDH1,    program: suppressor,      expected: unknown}
+  - {gene: TP63,    program: basal,           expected: down,    pmid: 12481011}
+  - {gene: KRT5,    program: basal,           expected: down,    pmid: 18813120}
+  - {gene: KLK3,    program: androgen,        expected: unknown}
+  - {gene: KLK2,    program: androgen,        expected: unknown}
+  - {gene: AR,      program: androgen,        expected: unknown}
+  - {gene: FKBP5,   program: androgen,        expected: unknown}
+  - {gene: TMPRSS2, program: androgen,        expected: unknown}
+  - {gene: HOXB13,  program: lineage,         expected: context, pmid: 25825985}
+  - {gene: MKI67,   program: proliferation,   expected: context, pmid: 23329234}
+  - {gene: PCNA,    program: proliferation,   expected: unknown}
+  - {gene: TOP2A,   program: proliferation,   expected: unknown}
+  - {gene: VIM,     program: microenvironment, expected: unknown}
+  - {gene: SNAI1,   program: microenvironment, expected: unknown}
+  - {gene: MMP9,    program: microenvironment, expected: unknown}
+  - {gene: IL6,     program: microenvironment, expected: unknown}
+  - {gene: STAT3,   program: microenvironment, expected: unknown}
+  - {gene: VEGFA,   program: microenvironment, expected: unknown}
+  - {gene: HIF1A,   program: microenvironment, expected: unknown}
+
+# Log-ratios on log-normalized expression: log1p(a) - log1p(b).
+ratios:
+  - [KLK3, AR]                    # androgen-response output relative to receptor transcript
+
+# The sections differ in tissue composition (epithelium vs stroma). Fold changes are
+# repeated within epithelium-rich spots: the top fraction of each slide by the mean
+# log-expression of these luminal/epithelial genes.
+composition:
+  epithelial_genes: [EPCAM, KRT8, KRT18]
+  stromal_genes: [ACTA2, DES, CNN1]   # smooth-muscle stroma; descriptive only
+  top_fraction: 0.33
+
+markers:
+  min_detection: 0.10             # detected in at least this fraction of spots in one slide
+  n_expression_bins: 20           # genes are matched to background genes by mean expression
+  background_percentile: 95       # |log2FC| must exceed this percentile of matched genes
+  n_random_sets: 500              # random gene sets for the slide-separation reference
+
+texture:
+  spot_scale: 2.0                 # crop side = spot_scale x spot diameter (hires pixels)
+  gray_levels: 32
+  distances: [1, 2]
+  angles_deg: [0, 45, 90, 135]
+
+concordance:
+  min_abs_rho: 0.20               # |Spearman rho| required in both slides

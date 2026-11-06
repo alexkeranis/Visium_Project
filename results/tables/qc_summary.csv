@@ -1,0 +1,3 @@
+slide,spots_in_tissue,spots_kept,median_counts,median_genes
+normal,2543,2542,4446.5,2694
+cancer,4371,4369,10710,4979

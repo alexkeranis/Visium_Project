@@ -1,0 +1,6 @@
+gene,in_probe_set,cv_cp10k_normal,rho_depth_normal,cv_cp10k_cancer,rho_depth_cancer,log2fc
+ACTB,True,0.391555,0.548862,0.476956,0.676891,-0.559695
+GAPDH,False,,,,,
+B2M,True,0.408407,0.825704,0.424157,0.779248,-0.400218
+RPLP0,False,,,,,
+PPIA,False,,,,,

@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below, and cite the 10x Genomics datasets it analyzes."
+title: "Prostate Visium candidate markers: interpretable signals from a normal and a cancer FFPE section"
+authors:
+  - family-names: Keranis
+    given-names: Alex
+version: 0.2.0
+date-released: 2026-11-06
+license: MIT
+repository-code: "https://github.com/alexkeranis/Visium_Project"

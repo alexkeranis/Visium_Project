@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prostate-markers"
+version = "0.2.0"
+description = "Interpretable candidate markers from a normal and a cancer prostate Visium FFPE section"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Alex Keranis" }]
+requires-python = ">=3.12"
+dependencies = [
+    "anndata>=0.12",
+    "matplotlib>=3.9",
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "PyYAML>=6.0",
+    "scanpy>=1.11",
+    "scikit-image>=0.24",
+    "scikit-learn>=1.5",
+    "scipy>=1.13",
+    "seaborn>=0.13",
+    "squidpy>=1.6",
+]
+
+[project.optional-dependencies]
+notebooks = ["jupyterlab>=4", "ipykernel>=6", "nbconvert>=7"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B905"]
